@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# call-brief: private data
+.env
+state.json
+transcripts_cache.json
+briefs/
+*.zip
+exports/
+
+# macOS
+.DS_Store
