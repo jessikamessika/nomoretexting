@@ -1,0 +1,14 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Termux runs this automatically when you share a file to Termux.
+# Install: copy to ~/bin/termux-file-editor and chmod +x (see README "Android: one-tap trim").
+set -euo pipefail
+OUT_DIR="$HOME/storage/shared/call-brief"
+trimmed=$(python "$HOME/trim_export.py" "$1" --out-dir "$OUT_DIR" | tail -n 1)
+rm -f "$1"                       # Termux's copy of the big export; WhatsApp can re-export anytime
+echo "Trimmed zip: $trimmed"
+if command -v termux-share >/dev/null; then
+  termux-share -a send "$trimmed"  # opens the share sheet: pick Google Drive
+else
+  echo "Install Termux:API (app + 'pkg install termux-api') to get the share sheet automatically."
+fi
+read -rp "Done. Press Enter to close."
